@@ -21,3 +21,22 @@ function absl_css_js_calling(){
 }
 add_action('wp_enqueue_scripts', 'absl_css_js_calling');
 
+// Theme Function for Logo
+function absl_logo_customizer_register($wp_customize){
+    $wp_customize->add_section('absl_header_area', array(
+        'title' =>__('Header Area', 'absoftlab'),
+        'description' => 'If you interested to update your headeer aria, you can do it here.'
+    ));
+
+    $wp_customize->add_setting('absl_logo', array(
+        'default' => get_bloginfo('template_directory').'/img/logo.png',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'absl_logo', array(
+        'lable' => 'Logo Upload',
+        'setting' => 'absl_logo',
+        'section' => 'absl_header_area'
+    )));
+}
+
+add_action('customize_register', 'absl_logo_customizer_register');
